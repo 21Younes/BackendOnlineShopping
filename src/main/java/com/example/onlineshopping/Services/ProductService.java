@@ -46,6 +46,12 @@ public class ProductService {
         return productRepository.findByCategory_CategoryId(categoryId);
     }
 
+    // get products by specific category ID
+
+    public List<Product>getProductsBySpecificCategoryId(Long specificCategoryId){
+        return productRepository.findBySpecificCategory_SpecificCategoryId(specificCategoryId);
+    }
+
     // Update product details
     public Product updateProduct(Long id, Product updatedProduct) {
         return productRepository.findById(id).map(product -> {

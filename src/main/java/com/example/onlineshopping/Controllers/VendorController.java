@@ -15,12 +15,17 @@ import java.util.Optional;
 @RequestMapping("/api/vendors")
 public class VendorController {
 
+    private final  VendorService vendorService;
+
     @Autowired
-    private VendorService vendorService;
+    public VendorController(VendorService vendorService) {
+        this.vendorService = vendorService;
+    }
 
     // Create a new vendor
     @PostMapping("/create")
     public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
+
         System.out.println("received vendor : " + vendor);
         return ResponseEntity.ok(vendorService.createVendor(vendor));
     }

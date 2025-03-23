@@ -25,7 +25,7 @@ public class VendorProfile {
 
     private String storeImage;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "vendorId")
     private Vendor vendor;
 

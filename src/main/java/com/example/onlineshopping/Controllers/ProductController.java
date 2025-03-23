@@ -50,6 +50,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsByCategoryId(categoryId));
     }
 
+    // Get products by Specific Category ID
+    @GetMapping("/specificcategory/{specificCategoryId}")
+    public ResponseEntity<List<Product>> getProductsBySpecificCategoryId(@PathVariable Long specificCategoryId) {
+        return ResponseEntity.ok(productService.getProductsBySpecificCategoryId(specificCategoryId));
+    }
+
     // Update product details
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
