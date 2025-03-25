@@ -37,6 +37,8 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<Payment> payments = new ArrayList<>();
+
+
     //Constructor
 
 
