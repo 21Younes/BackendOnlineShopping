@@ -1,6 +1,7 @@
 package com.example.onlineshopping.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,10 +19,16 @@ public class ProductReview {
     private int rating;
     private String Comment;
 
+    //relationship between the review and the product
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
     private Product product;
 
+
+    //relationship between the review and the customer
+
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
     private Customer customer;

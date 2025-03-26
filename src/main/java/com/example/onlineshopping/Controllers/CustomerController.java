@@ -1,7 +1,9 @@
 package com.example.onlineshopping.Controllers;
 
 import com.example.onlineshopping.Model.Customer;
+import com.example.onlineshopping.Model.ShoppingCart;
 import com.example.onlineshopping.Services.CustomerService;
+import com.example.onlineshopping.Services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +17,24 @@ public class CustomerController {
 
 
     private CustomerService customerService;
+    private ShoppingCartService shoppingCartService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, ShoppingCartService shoppingCartService) {
         this.customerService = customerService;
+        this.shoppingCartService = shoppingCartService;
     }
 
     // Create a new customer
     @PostMapping("/create")
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+        //adding the customer
         Customer newCustomer = customerService.addCustomer(customer);
+
+        //adding the shoppingcart
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setCustomer(newCustomer);
+        shoppingCartService.createShoppingCart(shoppingCart);
         return ResponseEntity.ok(newCustomer);
     }
 
