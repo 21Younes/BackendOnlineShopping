@@ -1,5 +1,6 @@
 package com.example.onlineshopping.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Payment {
     private boolean paymentStatus; // Payment status (true = paid, false = not paid)
 
     //relation to order
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId")
     private Order order; // The order that this payment is for
@@ -33,6 +35,7 @@ public class Payment {
     private Vendor vendor; // The vendor that this payment is for
 
     //relation for customer`
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
     private Customer customer;

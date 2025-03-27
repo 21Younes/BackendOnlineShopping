@@ -20,16 +20,17 @@ public class ProductReview {
     private String Comment;
 
     //relationship between the review and the product
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
+    @JsonIgnore()
     @JoinColumn(name = "productId")
     private Product product;
 
 
     //relationship between the review and the customer
 
+
+    @ManyToOne()
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
     private Customer customer;
 }
