@@ -1,13 +1,19 @@
 package com.example.onlineshopping.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 @Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderId")
 @Table(name = "Orders")
 public class Order {
     @Id
@@ -17,7 +23,6 @@ public class Order {
 
     //relationship between the order and the customer
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "customerId")
     private Customer customer; // The customer who placed the order
 
@@ -29,7 +34,6 @@ public class Order {
 
 
     //relationship between the order and the vendor
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "vendorId")
     private Vendor vendor; // The vendor who will fulfill the order

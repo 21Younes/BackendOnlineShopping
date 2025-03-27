@@ -1,7 +1,8 @@
 package com.example.onlineshopping.Model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "reviewId")
 @Table(name = "ProductReviews")
 public class ProductReview {
     @Id
@@ -21,7 +23,6 @@ public class ProductReview {
 
     //relationship between the review and the product
     @ManyToOne()
-    @JsonIgnore()
     @JoinColumn(name = "productId")
     private Product product;
 
@@ -30,7 +31,6 @@ public class ProductReview {
 
 
     @ManyToOne()
-    @JsonIgnore
     @JoinColumn(name = "customerId")
     private Customer customer;
 }

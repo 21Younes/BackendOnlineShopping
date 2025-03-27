@@ -1,16 +1,16 @@
 package com.example.onlineshopping.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
 @Data
 @Entity
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "vendorProfileId")
 @NoArgsConstructor
 public class VendorProfile {
     @Id

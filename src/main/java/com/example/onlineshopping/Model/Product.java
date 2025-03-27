@@ -1,6 +1,7 @@
 package com.example.onlineshopping.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 @Table(name = "Products")
 public class Product {
     @Id
@@ -28,20 +30,17 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "vendorId" )
-    @JsonIgnore
     private Vendor vendor; // The vendor who sells this product
 
     // relation with the category
 
     @ManyToOne
     @JoinColumn(name = "categoryid" )
-    @JsonIgnore
     private Category category;
 
     // relation with categorybysexandage
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "specificCategoryId") // Ensure this matches the column name in DB
     private SpecificCategory specificCategory;
 

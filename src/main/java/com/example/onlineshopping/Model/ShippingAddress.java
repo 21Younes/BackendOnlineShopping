@@ -1,7 +1,8 @@
 package com.example.onlineshopping.Model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ShippindAdressId")
 @Table(name = "ShippingAddresses")
 public class ShippingAddress {
     @Id
@@ -26,7 +28,6 @@ public class ShippingAddress {
     private String phoneNumber;
 
     //relationship with customer
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customerId")
     private Customer customer; // The customer that this address belongs to
