@@ -1,9 +1,11 @@
 package com.example.onlineshopping.Model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 @Table(name = "Products")
 public class Product {
     @Id
@@ -29,27 +30,32 @@ public class Product {
     //relation with the vendor
 
     @ManyToOne
-    @JoinColumn(name = "vendorId" )
+    @JsonIgnore
+    @JoinColumn(name = "vendorId")
     private Vendor vendor; // The vendor who sells this product
 
     // relation with the category
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "categoryid" )
     private Category category;
 
     // relation with categorybysexandage
 
     @ManyToOne
+//    @JsonIgnore
     @JoinColumn(name = "specificCategoryId") // Ensure this matches the column name in DB
     private SpecificCategory specificCategory;
 
 
     //relation with the product review
-
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductReview> productReviews = new ArrayList<>();// The reviews of this product
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();// The reviews of this product
 

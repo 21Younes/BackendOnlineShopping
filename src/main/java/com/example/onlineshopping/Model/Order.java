@@ -20,6 +20,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    private double totalAmount;
+    private String status; // "PENDING", "SHIPPED", "DELIVERED"
+
 
     //relationship between the order and the customer
     @ManyToOne
@@ -38,6 +41,5 @@ public class Order {
     @JoinColumn(name = "vendorId")
     private Vendor vendor; // The vendor who will fulfill the order
 
-    private double totalAmount;
-    private String status; // "PENDING", "SHIPPED", "DELIVERED"
+
 }
