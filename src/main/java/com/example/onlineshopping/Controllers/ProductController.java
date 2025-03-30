@@ -108,8 +108,40 @@ public class ProductController {
 
     // Get products by Specific Category ID
     @GetMapping("/specificcategory/{specificCategoryId}")
-    public ResponseEntity<List<Product>> getProductsBySpecificCategoryId(@PathVariable Long specificCategoryId) {
-        return ResponseEntity.ok(productService.getProductsBySpecificCategoryId(specificCategoryId));
+    public ResponseEntity<List<ProductDetailDTO>> getProductsBySpecificCategoryId(@PathVariable Long specificCategoryId) {
+        List<Product> products = productService.getProductsBySpecificCategoryId(specificCategoryId);
+
+        List<ProductDetailDTO> productDetailDTOS = products.stream().map(product -> {
+            ProductDetailDTO productDetailDTO = new ProductDetailDTO();
+            productDetailDTO.setProductId(product.getProductId());
+            productDetailDTO.setName(product.getName());
+            productDetailDTO.setImage(product.getImage());
+            productDetailDTO.setDescription(product.getDescription());
+            productDetailDTO.setPrice(product.getPrice());
+            productDetailDTO.setStockQuantity(product.getStockQuantity());
+            productDetailDTO.setVendorId(product.getVendor().getVendorId());
+            productDetailDTO.setCategoryId(product.getCategory().getCategoryId());
+            productDetailDTO.setSpecificCategoryId(product.getSpecificCategory().getSpecificCategoryId());
+
+
+            List<ReviewDTO> reviewDTOs = product.getProductReviews().stream()
+                    .map(productReview -> {
+                        ReviewDTO reviewDTO = new ReviewDTO();
+                        reviewDTO.setRating(productReview.getRating());
+                        reviewDTO.setComment(productReview.getComment());
+                        reviewDTO.setCustomerId(productReview.getCustomer().getCustomerId());
+                        reviewDTO.setProductId(productReview.getProduct().getProductId());
+                        return reviewDTO;
+                    }).collect(Collectors.toList());
+
+            productDetailDTO.setReviews(reviewDTOs);
+
+            return productDetailDTO;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(productDetailDTOS);
+
+
     }
 
     // Update product details

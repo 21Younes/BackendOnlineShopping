@@ -5,6 +5,8 @@ import com.example.onlineshopping.Repository.ShoppingCartItemRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ShoppingCartItemService {
     private final ShoppingCartItemRespository shoppingCartItemRespository;
@@ -35,11 +37,9 @@ public class ShoppingCartItemService {
     }
 
     //update shopping cart item
-    public ShoppingCartItem updateShoppingCartItem(Long shoppingCartItemId, ShoppingCartItem updatedShoppingCartItem){
+    public ShoppingCartItem updateShoppingCartItem(Long shoppingCartItemId, int newQuantity){
         ShoppingCartItem oldShoppingCartItem = shoppingCartItemRespository.findById(shoppingCartItemId).orElseThrow(() -> new RuntimeException("Shopping Cart Item not found by id: " + shoppingCartItemId));
-        oldShoppingCartItem.setQuantity(updatedShoppingCartItem.getQuantity());
-        oldShoppingCartItem.setProduct(updatedShoppingCartItem.getProduct());
-        oldShoppingCartItem.setShoppingCart(updatedShoppingCartItem.getShoppingCart());
+        oldShoppingCartItem.setQuantity(newQuantity);
         return shoppingCartItemRespository.save(oldShoppingCartItem);
     }
 
@@ -49,4 +49,8 @@ public class ShoppingCartItemService {
     }
 
 
+    public Optional<ShoppingCartItem> getByShoppingCartId(Long shoppingCartItemId) {
+        return Optional.ofNullable(shoppingCartItemRespository.findById(shoppingCartItemId).orElseThrow(() -> new RuntimeException("Shopping Cart Item not found by id: " + shoppingCartItemId)));
+
+    }
 }

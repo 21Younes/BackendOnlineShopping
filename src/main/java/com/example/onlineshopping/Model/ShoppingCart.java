@@ -23,9 +23,11 @@ public class ShoppingCart {
     private Long id; // Unique identifier for the shopping cart
 
     @OneToOne
-    @JoinColumn(name = "customerId", nullable = false)
+    @JoinColumn(name = "customerId", nullable =                        false)
     private Customer customer; // The customer who owns the cart
 
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ShoppingCartItem> items; // List of items in the cart
+
+
 }
